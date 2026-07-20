@@ -76,11 +76,14 @@ function getSocketUrl(): string {
 	const configuredBackendUrl = import.meta.env.VITE_BACKEND_URL?.trim();
 	if (configuredBackendUrl) return configuredBackendUrl.replace(/\/+$/, "");
 
+	const currentOrigin = globalThis.location.origin.replace(/\/+$/, "");
+	if (currentOrigin === config.frontendOrigin) return config.backendOrigin;
+
 	if (globalThis.location.port === String(config.clientPort)) {
 		return `${globalThis.location.protocol}//${globalThis.location.hostname}:${config.serverPort}`;
 	}
 
-	return globalThis.location.origin;
+	return currentOrigin;
 }
 
 function getSocketOptions(

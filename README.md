@@ -76,4 +76,17 @@ dist/         Generated build output
 
 ## Deployment
 
-The frontend can be built for GitHub Pages with `pnpm run build:pages`. The backend can be built with `pnpm run build:backend` and run with Docker or `pnpm run start`.
+The production frontend is hosted at `https://castlefall.github.io/`. Build it for GitHub Pages with:
+
+```sh
+pnpm run build:pages
+```
+
+The production Socket.IO/API server is hosted at `https://castlefall.duckdns.org/`. The frontend defaults to that backend when it is served from `https://castlefall.github.io/`; for other deployments, set `VITE_BACKEND_URL`.
+
+The backend can be built with `pnpm run build:backend` and run with Docker or `pnpm run start`. In production, allow the GitHub Pages origin:
+
+```sh
+FRONTEND_ORIGIN=https://castlefall.github.io
+ALLOWED_ORIGINS=https://castlefall.github.io,https://castlefall.duckdns.org
+```
