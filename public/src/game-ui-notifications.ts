@@ -68,27 +68,47 @@ function renderPublicTablePanels(container: HTMLElement, table: TableView): void
 	container.classList.remove("is-empty");
 	container.replaceChildren();
 
-	if (table.message) {
-		const message = document.createElement("div");
-		message.className = "castlefall-message";
-		message.textContent = table.message;
-		container.append(message);
-	}
+	container.append(createBoardHeader(table));
 
+	const board = document.createElement("div");
+	board.className = "castlefall-board";
+
+	const wordLane = document.createElement("div");
+	wordLane.className = "castlefall-lane castlefall-lane-words";
 	if (table.secret || table.wordOptions?.length)
-		container.append(createSecretPanel(table));
-
+		wordLane.append(createSecretPanel(table));
 	if (table.revealedTeams?.length)
-		container.append(createRevealedTeamsPanel(table.revealedTeams));
+		wordLane.append(createRevealedTeamsPanel(table.revealedTeams));
 
-	container.append(
+	const activityLane = document.createElement("div");
+	activityLane.className = "castlefall-lane castlefall-lane-activity";
+	activityLane.append(
 		createDeclarationPanel(table.publicDeclarations ?? []),
 		createHintPanel(table.publicHints ?? []),
 	);
+
+	board.append(wordLane, activityLane);
+	container.append(board);
+}
+
+function createBoardHeader(table: TableView): HTMLElement {
+	const header = document.createElement("div");
+	header.className = "castlefall-header";
+
+	const title = document.createElement("div");
+	title.className = "castlefall-title";
+	title.textContent = "Castlefall";
+
+	const message = document.createElement("div");
+	message.className = "castlefall-message";
+	message.textContent = table.message || "Find your team. Protect your word.";
+
+	header.append(title, message);
+	return header;
 }
 
 function createSecretPanel(table: TableView): HTMLElement {
-	const section = createPanel("Round Words");
+	const section = createPanel("Your Word", "castlefall-panel-secret");
 
 	if (table.secret) {
 		const secret = document.createElement("div");
@@ -104,6 +124,11 @@ function createSecretPanel(table: TableView): HTMLElement {
 		secret.append(label, value);
 		section.append(secret);
 	}
+
+	const wordHeader = document.createElement("div");
+	wordHeader.className = "castlefall-subtitle";
+	wordHeader.textContent = "Possible words";
+	section.append(wordHeader);
 
 	const words = document.createElement("div");
 	words.className = "castlefall-word-grid";
@@ -121,7 +146,7 @@ function createSecretPanel(table: TableView): HTMLElement {
 function createRevealedTeamsPanel(
 	teams: NonNullable<TableView["revealedTeams"]>,
 ): HTMLElement {
-	const section = createPanel("Revealed Teams");
+	const section = createPanel("Revealed Teams", "castlefall-panel-revealed");
 	const list = document.createElement("div");
 	list.className = "castlefall-team-list";
 
@@ -148,7 +173,7 @@ function createRevealedTeamsPanel(
 function createDeclarationPanel(
 	declarations: NonNullable<TableView["publicDeclarations"]>,
 ): HTMLElement {
-	const section = createPanel("Declarations");
+	const section = createPanel("Declarations", "castlefall-panel-declarations");
 	const list = document.createElement("div");
 	list.className = "castlefall-list";
 
@@ -189,7 +214,7 @@ function createDeclarationPanel(
 }
 
 function createHintPanel(hints: PublicHintView[]): HTMLElement {
-	const section = createPanel("Public Hints");
+	const section = createPanel("Public Hints", "castlefall-panel-hints");
 	const list = document.createElement("div");
 	list.className = "castlefall-list";
 
@@ -246,9 +271,9 @@ function createVoteButton(
 	return button;
 }
 
-function createPanel(title: string): HTMLElement {
+function createPanel(title: string, modifier = ""): HTMLElement {
 	const section = document.createElement("section");
-	section.className = "castlefall-panel";
+	section.className = `castlefall-panel ${modifier}`.trim();
 
 	const heading = document.createElement("h2");
 	heading.className = "castlefall-panel-title";

@@ -78,93 +78,44 @@ const TEAM_DECLARATION_WINDOW_MS = 60_000;
 const DEFAULT_ROUND_MESSAGE =
 	"Two hidden teams share two secret words from the same list.";
 
-const CASTLEFALL_WORDS = [
-	"anchor",
-	"archive",
-	"aurora",
-	"bakery",
-	"beacon",
-	"blizzard",
-	"bridge",
-	"cabinet",
-	"canyon",
-	"castle",
-	"cipher",
-	"comet",
-	"compass",
-	"copper",
-	"coral",
-	"crater",
-	"crown",
-	"delta",
-	"diamond",
-	"dragon",
-	"ember",
-	"engine",
-	"falcon",
-	"festival",
-	"fountain",
-	"garden",
-	"glacier",
-	"harbor",
-	"harvest",
-	"horizon",
-	"lantern",
-	"library",
-	"market",
-	"meteor",
-	"mirror",
-	"monsoon",
-	"nebula",
-	"oasis",
-	"orchard",
-	"palace",
-	"paradox",
-	"pirate",
-	"planet",
-	"quarry",
-	"raven",
-	"river",
-	"satellite",
-	"signal",
-	"sparrow",
-	"statue",
-	"temple",
-	"thunder",
-	"tower",
-	"tundra",
-	"valley",
-	"velvet",
-	"voyage",
-	"window",
-	"wizard",
-	"zephyr",
-	"apricot",
-	"balloon",
-	"candle",
-	"desert",
-	"eclipse",
-	"feather",
-	"galaxy",
-	"hammer",
-	"island",
-	"jasmine",
-	"kettle",
-	"ladder",
-	"magnet",
-	"needle",
-	"opera",
-	"puzzle",
-	"quartz",
-	"rocket",
-	"shadow",
-	"ticket",
-	"umbrella",
-	"violin",
-	"whistle",
-	"xylophone",
-	"yonder",
-	"zipper",
+const WORD_STARTS = [
+	"br",
+	"cl",
+	"dr",
+	"f",
+	"gl",
+	"h",
+	"j",
+	"k",
+	"l",
+	"m",
+	"n",
+	"p",
+	"qu",
+	"r",
+	"s",
+	"t",
+	"v",
+	"w",
+	"z",
+];
+const WORD_VOWELS = ["a", "e", "i", "o", "u", "ae", "ia", "oo"];
+const WORD_ENDS = [
+	"b",
+	"ck",
+	"d",
+	"f",
+	"g",
+	"l",
+	"m",
+	"n",
+	"p",
+	"r",
+	"s",
+	"t",
+	"th",
+	"v",
+	"x",
 ];
 
 export class CastlefallGame {
@@ -250,7 +201,7 @@ function startGame(game: CastlefallGame, players: Player[]): void {
 		player.index = index;
 	}
 
-	const words = shuffled(CASTLEFALL_WORDS).slice(0, WORD_OPTION_COUNT);
+	const words = generateRoundWords(WORD_OPTION_COUNT);
 	const teamWords: Record<CastlefallTeamId, string> = {
 		A: words[0],
 		B: words[1],
@@ -871,6 +822,29 @@ function normalizeName(value: string): string {
 
 function normalizeWord(value: string): string {
 	return value.trim().toLowerCase();
+}
+
+function generateRoundWords(count: number): string[] {
+	const words = new Set<string>();
+	while (words.size < count) words.add(generateRandomWord());
+	return shuffled([...words]);
+}
+
+function generateRandomWord(): string {
+	const syllableCount = Math.random() < 0.72 ? 2 : 3;
+	let word = "";
+
+	for (let index = 0; index < syllableCount; index++) {
+		word += randomItem(WORD_STARTS) + randomItem(WORD_VOWELS);
+		if (index === syllableCount - 1 || Math.random() < 0.55)
+			word += randomItem(WORD_ENDS);
+	}
+
+	return word;
+}
+
+function randomItem<T>(items: T[]): T {
+	return items[Math.floor(Math.random() * items.length)];
 }
 
 function shuffled<T>(items: T[]): T[] {

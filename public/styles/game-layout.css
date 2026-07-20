@@ -14,19 +14,19 @@
 	flex-direction: column;
 	container-type: size;
 
-	--game-area-gap: 2cqh;
-	--game-control-height: 5cqh;
+	--game-area-gap: 0px;
+	--game-control-height: 56px;
 
-	--field-height: 40cqh;
+	--field-height: auto;
 
-	--table-width: 40cqw;
-	--table-height: 30cqh;
-	--table-padding: 3cqh;
+	--table-width: 100%;
+	--table-height: 100%;
+	--table-padding: 0;
 
-	--action-button-gap: 1cqh;
+	--action-button-gap: 10px;
 
 	gap: var(--game-area-gap);
-	padding: var(--game-area-gap) 0;
+	padding: 0;
 	width: 100%;
 	min-width: 0;
 	height: 100vh;
@@ -42,20 +42,30 @@
 	gap: var(--action-button-gap);
 	width: 100%;
 	height: var(--game-control-height);
+	border-color: var(--border);
+	background: rgba(12, 14, 15, 0.78);
+}
+
+#notification-area {
+	border-bottom: 1px solid var(--border);
+}
+
+#action-buttons {
+	border-top: 1px solid var(--border);
 }
 
 #action-buttons {
 	flex-wrap: wrap;
 	align-content: center;
 	box-sizing: border-box;
-	padding: 0 12px;
+	padding: 10px 16px;
 	overflow: hidden;
 }
 
 #action-buttons button {
-	padding: 6px 14px;
-	max-width: min(240px, 32cqw);
-	height: max(34px, calc(var(--game-control-height) * 0.86));
+	padding: 7px 16px;
+	max-width: min(260px, 100%);
+	height: 38px;
 	overflow-wrap: anywhere;
 	text-align: center;
 	line-height: 18px;
@@ -70,15 +80,17 @@
 	z-index: 10;
 	box-sizing: border-box;
 	background: #0d0f10;
-	padding: calc(var(--game-control-height) / 4)
-		calc(var(--game-control-height) / 3);
+	padding: 9px 14px;
 	width: fit-content;
-	height: var(--game-control-height);
+	max-width: calc(100% - 24px);
+	height: 36px;
 	color: #fff;
 	font-weight: 400;
 	font-size: 12px;
 	line-height: 18px;
 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #field-area {
@@ -87,7 +99,32 @@
 	flex: 1 1 auto;
 	z-index: 1;
 	background: transparent;
+	padding: 16px;
 	width: 100%;
 	height: var(--field-height);
 	overflow: hidden;
+}
+
+@media (max-width: 760px) {
+	#game {
+		flex-direction: column;
+		overflow: auto;
+	}
+
+	#game-area {
+		min-height: 72vh;
+		height: auto;
+		overflow: visible;
+	}
+
+	#notification-area,
+	#action-buttons {
+		flex-basis: auto;
+		min-height: var(--game-control-height);
+	}
+
+	#field-area {
+		min-height: 620px;
+		overflow: visible;
+	}
 }

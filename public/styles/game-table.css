@@ -16,33 +16,100 @@
 }
 
 #table-container.castlefall-table {
-	gap: 18px;
-	border: 1px solid var(--border-strong);
-	background: rgba(18, 22, 24, 0.98);
-	padding: 22px;
-	width: min(940px, calc(100% - 40px));
-	height: min(78cqh, calc(100% - 24px));
-	overflow: auto;
+	position: relative;
+	top: auto;
+	left: auto;
+	flex: 1;
+	transform: none;
+	gap: 16px;
+	border: 0;
+	background: transparent;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	min-height: 0;
+	overflow: hidden;
 	pointer-events: auto;
 }
 
-.castlefall-message {
+.castlefall-header {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: center;
+	gap: 16px;
 	border-bottom: 1px solid var(--border);
-	padding-bottom: 14px;
+	background: rgba(255, 255, 255, 0.035);
+	padding: 14px 16px;
+	min-height: 62px;
+}
+
+.castlefall-title {
 	color: var(--text-primary);
-	font-weight: 700;
-	font-size: 18px;
+	font-weight: 800;
+	font-size: 20px;
 	line-height: 26px;
+}
+
+.castlefall-message {
+	color: var(--text-primary);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 20px;
+	overflow-wrap: anywhere;
+}
+
+.castlefall-board {
+	display: grid;
+	flex: 1;
+	grid-template-columns: minmax(300px, 0.95fr) minmax(380px, 1.35fr);
+	gap: 16px;
+	min-height: 0;
+	height: auto;
+}
+
+.castlefall-lane {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
+.castlefall-lane-activity {
+	display: grid;
+	grid-template-rows: minmax(128px, auto) minmax(0, 1fr);
 }
 
 .castlefall-panel {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
+	border: 1px solid var(--border);
+	background: rgba(255, 255, 255, 0.045);
+	padding: 16px;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
+.castlefall-panel-secret {
+	border-color: rgba(93, 212, 240, 0.25);
+	background: rgba(58, 184, 216, 0.08);
+}
+
+.castlefall-panel-hints {
+	overflow: hidden;
+}
+
+.castlefall-panel-hints .castlefall-list,
+.castlefall-panel-declarations .castlefall-list {
+	padding-right: 3px;
+	overflow: auto;
 }
 
 .castlefall-panel-title {
-	color: var(--text-secondary);
+	color: rgba(255, 255, 255, 0.62);
 	font-weight: 700;
 	font-size: 12px;
 	line-height: 16px;
@@ -50,14 +117,20 @@
 	letter-spacing: 0;
 }
 
+.castlefall-subtitle {
+	color: var(--text-secondary);
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 16px;
+}
+
 .castlefall-secret {
 	display: grid;
-	grid-template-columns: auto minmax(0, 1fr);
-	align-items: center;
-	gap: 12px;
-	border: 1px solid rgba(93, 212, 240, 0.24);
-	background: rgba(58, 184, 216, 0.1);
-	padding: 12px 14px;
+	grid-template-columns: 1fr;
+	gap: 6px;
+	border: 1px solid rgba(93, 212, 240, 0.32);
+	background: rgba(4, 18, 24, 0.44);
+	padding: 16px;
 }
 
 .castlefall-secret-label {
@@ -70,29 +143,31 @@
 .castlefall-secret strong {
 	overflow-wrap: anywhere;
 	color: var(--text-primary);
-	font-size: 24px;
-	line-height: 30px;
+	font-size: 34px;
+	line-height: 40px;
 }
 
 .castlefall-word-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
 	gap: 8px;
+	min-height: 0;
+	overflow: auto;
 }
 
 .castlefall-word {
-	border: 1px solid var(--border);
-	background: rgba(255, 255, 255, 0.06);
-	padding: 7px 9px;
+	border: 1px solid rgba(255, 255, 255, 0.11);
+	background: rgba(255, 255, 255, 0.07);
+	padding: 8px 9px;
 	min-width: 0;
-	overflow: hidden;
+	overflow: visible;
 	color: var(--text-primary);
 	font-weight: 600;
 	font-size: 13px;
 	line-height: 18px;
 	text-align: center;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	overflow-wrap: anywhere;
+	white-space: normal;
 }
 
 .castlefall-team-list {
@@ -106,6 +181,11 @@
 	border: 1px solid var(--border);
 	background: rgba(255, 255, 255, 0.045);
 	padding: 12px;
+}
+
+.castlefall-team {
+	border-color: rgba(226, 180, 43, 0.2);
+	background: rgba(226, 180, 43, 0.07);
 }
 
 .castlefall-team-header {
@@ -130,12 +210,14 @@
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+	min-height: 0;
 }
 
 .castlefall-entry {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+	flex-shrink: 0;
 }
 
 .castlefall-entry-text {
@@ -177,16 +259,28 @@
 
 @media (max-width: 760px) {
 	#table-container.castlefall-table {
-		width: calc(100% - 20px);
-		height: min(82cqh, calc(100% - 16px));
-		padding: 16px;
+		height: auto;
+		overflow: visible;
 	}
 
-	.castlefall-team-list {
+	.castlefall-header,
+	.castlefall-board {
 		grid-template-columns: 1fr;
 	}
 
-	.castlefall-secret {
+	.castlefall-lane,
+	.castlefall-panel,
+	.castlefall-panel-hints .castlefall-list,
+	.castlefall-panel-declarations .castlefall-list {
+		overflow: visible;
+	}
+
+	.castlefall-secret strong {
+		font-size: 28px;
+		line-height: 34px;
+	}
+
+	.castlefall-team-list {
 		grid-template-columns: 1fr;
 	}
 }

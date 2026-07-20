@@ -4,10 +4,7 @@ import {
 	renderTurnBanner,
 } from "./game-ui-notifications";
 import { renderPlayerList } from "./game-ui-players";
-import {
-	renderGameInfoUI,
-	updateSidebarRoomCode,
-} from "./game-ui-sidebar";
+import { updateSidebarRoomCode } from "./game-ui-sidebar";
 import { gs } from "./session";
 
 export function showRoomElements(): void {
@@ -32,7 +29,6 @@ export function updateUIGame(): void {
 	renderActionButtons();
 	renderTurnBanner();
 	renderTableMessage();
-	renderGameInfoUI();
 }
 
 export function startGameUI(): void {
