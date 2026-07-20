@@ -1,0 +1,93 @@
+#game {
+	display: flex;
+	position: relative;
+	flex-direction: row;
+	background: var(--background);
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#game-area {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	container-type: size;
+
+	--game-area-gap: 2cqh;
+	--game-control-height: 5cqh;
+
+	--field-height: 40cqh;
+
+	--table-width: 40cqw;
+	--table-height: 30cqh;
+	--table-padding: 3cqh;
+
+	--action-button-gap: 1cqh;
+
+	gap: var(--game-area-gap);
+	padding: var(--game-area-gap) 0;
+	width: 100%;
+	min-width: 0;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#notification-area,
+#action-buttons {
+	display: flex;
+	flex: 0 0 var(--game-control-height);
+	justify-content: center;
+	align-items: center;
+	gap: var(--action-button-gap);
+	width: 100%;
+	height: var(--game-control-height);
+}
+
+#action-buttons {
+	flex-wrap: wrap;
+	align-content: center;
+	box-sizing: border-box;
+	padding: 0 12px;
+	overflow: hidden;
+}
+
+#action-buttons button {
+	padding: 6px 14px;
+	max-width: min(240px, 32cqw);
+	height: max(34px, calc(var(--game-control-height) * 0.86));
+	overflow-wrap: anywhere;
+	text-align: center;
+	line-height: 18px;
+	white-space: normal;
+}
+
+#turn-banner {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: calc(var(--game-control-height) / 3);
+	z-index: 10;
+	box-sizing: border-box;
+	background: #0d0f10;
+	padding: calc(var(--game-control-height) / 4)
+		calc(var(--game-control-height) / 3);
+	width: fit-content;
+	height: var(--game-control-height);
+	color: #fff;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 18px;
+	white-space: nowrap;
+}
+
+#field-area {
+	display: flex;
+	position: relative;
+	flex: 1 1 auto;
+	z-index: 1;
+	background: transparent;
+	width: 100%;
+	height: var(--field-height);
+	overflow: hidden;
+}

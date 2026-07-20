@@ -1,0 +1,20 @@
+services:
+    castlefall:
+        build:
+            context: .
+        container_name: castlefall
+        restart: unless-stopped
+        environment:
+            NODE_ENV: production
+            HOST: 0.0.0.0
+            PORT: 8000
+            FRONTEND_ORIGIN: https://castlefall.duckdns.org
+            ALLOWED_ORIGINS: https://castlefall.duckdns.org
+        expose:
+            - "8000"
+        networks:
+            - web
+
+networks:
+    web:
+        external: true

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Castlefall</title>
+	<link rel="stylesheet" href="/styles/base.css" />
+	<link rel="stylesheet" href="/styles/menu.css" />
+	<link rel="stylesheet" href="/styles/game-layout.css" />
+	<link rel="stylesheet" href="/styles/game-table.css" />
+	<link rel="stylesheet" href="/styles/game-sidebar.css" />
+	<link rel="stylesheet" href="/styles/game-chat.css" />
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+</head>
+
+<body>
+	<!-- MENU SCREEN -->
+	<div id="menu" class="screen">
+		<div class="menu-content">
+			<div class="menu-header">
+				<h1 class="game-title">
+					<span class="title-english">Castlefall</span>
+				</h1>
+			</div>
+
+			<div class="menu-main">
+				<p class="menu-description">Join a room, start a round, and find your hidden team without giving away
+					your word.</p>
+
+				<div class="input-group name-group">
+					<input type="text" id="player-name-input" placeholder="Your name" maxlength="20"
+						autocomplete="off" />
+				</div>
+
+				<div class="input-group">
+					<input type="text" id="room-code-input" placeholder="Enter 4 letter game code" maxlength="4"
+						autocomplete="off" />
+					<button id="join-game-btn" class="btn-primary">Join Game</button>
+				</div>
+
+				<div class="divider">or</div>
+
+				<div class="input-group">
+					<button id="create-game-btn" class="btn-secondary">Create Game</button>
+				</div>
+			</div>
+		</div>
+		<div id="menu-error"></div>
+	</div>
+
+	<!-- NAME MODAL -->
+	<div id="name-modal" class="modal hidden">
+		<div class="modal-content">
+			<h2>Enter Your Name</h2>
+			<p>You need to set a name before joining a room.</p>
+			<div class="form-group">
+				<input type="text" id="modal-name-input" placeholder="Your name" maxlength="20" required />
+			</div>
+			<div id="modal-error" class="error"></div>
+			<div class="modal-buttons">
+				<button id="submit-name-btn" class="btn-primary">Confirm</button>
+				<button id="close-modal" class="btn-secondary">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- GAME SCREEN -->
+	<div id="game" class="screen hidden">
+
+		<!-- LEFT: Players Sidebar -->
+		<div id="game-sidebar">
+			<div id="sidebar-header">
+				<button type="button" class="game-room-title" id="game-room-code">----</button>
+			</div>
+
+			<div id="scoreboard-section">
+				<h3 class="sidebar-section-title">Players</h3>
+				<div id="player-list"></div>
+			</div>
+
+			<div id="game-info"></div>
+
+			<div id="chat-section">
+				<h3 class="sidebar-section-title">Chat</h3>
+				<div id="chat-messages"></div>
+			</div>
+
+			<div id="chat-input-container">
+				<input type="text" id="chat-input" placeholder="Say something!" maxlength="200" />
+			</div>
+		</div>
+		<div id="sidebar-resizer" role="separator" aria-label="Resize sidebar" aria-controls="game-sidebar"
+			aria-orientation="vertical" tabindex="0"></div>
+
+		<!-- CENTER: Game Area -->
+		<div id="game-area">
+			<div id="notification-area">
+				<div id="turn-banner" style="display:none;"></div>
+			</div>
+
+			<div id="field-area">
+				<div id="table-container"></div>
+			</div>
+
+			<div id="action-buttons"></div>
+		</div>
+
+	</div>
+
+	<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+	<script type="module" src="/src/client.js"></script>
+</body>
+
+</html>

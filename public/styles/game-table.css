@@ -1,0 +1,192 @@
+#table-container {
+	display: flex;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	flex-direction: column;
+	justify-content: flex-start;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	box-sizing: border-box;
+	background: rgba(26, 29, 33, 0.96);
+	padding: var(--table-padding);
+	width: var(--table-width);
+	height: var(--table-height);
+	pointer-events: none;
+}
+
+#table-container.castlefall-table {
+	gap: 18px;
+	border: 1px solid var(--border-strong);
+	background: rgba(18, 22, 24, 0.98);
+	padding: 22px;
+	width: min(940px, calc(100% - 40px));
+	height: min(78cqh, calc(100% - 24px));
+	overflow: auto;
+	pointer-events: auto;
+}
+
+.castlefall-message {
+	border-bottom: 1px solid var(--border);
+	padding-bottom: 14px;
+	color: var(--text-primary);
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 26px;
+}
+
+.castlefall-panel {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.castlefall-panel-title {
+	color: var(--text-secondary);
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 16px;
+	text-transform: uppercase;
+	letter-spacing: 0;
+}
+
+.castlefall-secret {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: center;
+	gap: 12px;
+	border: 1px solid rgba(93, 212, 240, 0.24);
+	background: rgba(58, 184, 216, 0.1);
+	padding: 12px 14px;
+}
+
+.castlefall-secret-label {
+	color: var(--text-secondary);
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 18px;
+}
+
+.castlefall-secret strong {
+	overflow-wrap: anywhere;
+	color: var(--text-primary);
+	font-size: 24px;
+	line-height: 30px;
+}
+
+.castlefall-word-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+	gap: 8px;
+}
+
+.castlefall-word {
+	border: 1px solid var(--border);
+	background: rgba(255, 255, 255, 0.06);
+	padding: 7px 9px;
+	min-width: 0;
+	overflow: hidden;
+	color: var(--text-primary);
+	font-weight: 600;
+	font-size: 13px;
+	line-height: 18px;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.castlefall-team-list {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+}
+
+.castlefall-team,
+.castlefall-entry {
+	border: 1px solid var(--border);
+	background: rgba(255, 255, 255, 0.045);
+	padding: 12px;
+}
+
+.castlefall-team-header {
+	margin-bottom: 6px;
+	color: var(--text-primary);
+	font-weight: 800;
+	font-size: 15px;
+	line-height: 20px;
+}
+
+.castlefall-team-players,
+.castlefall-entry-meta,
+.castlefall-entry-result,
+.castlefall-empty {
+	color: var(--text-secondary);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.castlefall-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.castlefall-entry {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.castlefall-entry-text {
+	overflow-wrap: anywhere;
+	color: var(--text-primary);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.castlefall-votes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.castlefall-vote {
+	border: 1px solid var(--border-strong);
+	background: rgba(255, 255, 255, 0.08);
+	padding: 6px 10px;
+	width: auto;
+	height: 34px;
+	color: var(--text-primary);
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.castlefall-vote[aria-pressed="true"] {
+	border-color: rgba(50, 194, 133, 0.8);
+	background: rgba(50, 194, 133, 0.2);
+	color: #e9fff5;
+}
+
+.castlefall-vote[aria-pressed="true"]:last-child {
+	border-color: rgba(246, 92, 92, 0.78);
+	background: rgba(246, 92, 92, 0.18);
+	color: #fff0f0;
+}
+
+@media (max-width: 760px) {
+	#table-container.castlefall-table {
+		width: calc(100% - 20px);
+		height: min(82cqh, calc(100% - 16px));
+		padding: 16px;
+	}
+
+	.castlefall-team-list {
+		grid-template-columns: 1fr;
+	}
+
+	.castlefall-secret {
+		grid-template-columns: 1fr;
+	}
+}

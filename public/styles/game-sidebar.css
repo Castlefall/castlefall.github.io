@@ -1,0 +1,219 @@
+#game-sidebar {
+	display: flex;
+	flex: 0 0 var(--sidebar-width, 320px);
+	flex-direction: column;
+	background: rgba(15, 16, 18, 0.7);
+	width: var(--sidebar-width, 320px);
+	min-width: 240px;
+	max-width: min(520px, 52vw);
+	overflow: hidden;
+}
+
+#sidebar-resizer {
+	display: flex;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: var(--sidebar-width, 320px);
+	justify-content: center;
+	align-items: center;
+	transform: translateX(-50%);
+	z-index: 12;
+	outline: none;
+	background: transparent;
+	width: 12px;
+	cursor: col-resize;
+	touch-action: none;
+}
+
+#sidebar-resizer::before {
+	display: block;
+	transition:
+		background-color 120ms ease,
+		opacity 120ms ease;
+	background: var(--border-strong);
+	width: 1px;
+	height: 100%;
+	opacity: 0.5;
+	content: "";
+}
+
+#sidebar-resizer:hover::before,
+#sidebar-resizer:focus-visible::before,
+#sidebar-resizer.is-active::before {
+	background: var(--cyan);
+	opacity: 1;
+}
+
+body.is-resizing-sidebar {
+	cursor: col-resize;
+	user-select: none;
+}
+
+#sidebar-header {
+	border-bottom: 1px solid var(--border);
+	padding: 20px;
+	font-weight: 500;
+	font-size: 36px;
+}
+
+.game-room-title {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	border-radius: 8px;
+	background: transparent;
+	padding: 4px 8px;
+	height: auto;
+	color: var(--text-primary);
+	font: inherit;
+	font-weight: 500;
+	line-height: 1;
+	appearance: none;
+	user-select: none;
+	transition:
+		background-color 120ms ease,
+		border-color 120ms ease,
+		box-shadow 120ms ease;
+}
+
+.game-room-title.is-clickable {
+	cursor: pointer;
+}
+
+.game-room-title.is-clickable:hover,
+.game-room-title.is-clickable:focus-visible {
+	background: rgba(255, 255, 255, 0.06);
+	outline: none;
+}
+
+.game-room-title.is-clickable:active,
+.game-room-title:active {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.game-room-title:disabled {
+	cursor: default;
+	opacity: 0.6;
+}
+
+.game-room-title:disabled:hover,
+.game-room-title:disabled:focus-visible {
+	background: transparent;
+	color: var(--text-primary);
+}
+
+#scoreboard-section {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	box-sizing: border-box;
+	border-bottom: 1px solid var(--border);
+	padding: 20px;
+	height: auto;
+}
+
+.sidebar-section-title {
+	display: flex;
+	color: var(--text-primary);
+	font-weight: 500;
+	font-size: 18px;
+}
+
+#player-list {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#game-info {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	border-bottom: 1px solid var(--border);
+	padding: 20px;
+}
+
+#game-info:empty {
+	display: none;
+}
+
+.info-row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 12px;
+	box-sizing: border-box;
+	padding: 5px 20px;
+	width: 100%;
+	color: var(--text-secondary);
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.info-label {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.info-value {
+	color: var(--text);
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.player-item {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 12px;
+	box-sizing: border-box;
+	padding: 5px 20px;
+	width: 100%;
+}
+
+.role-indicator {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	vertical-align: middle;
+	margin-left: 8px;
+	border: 1.5px solid #e2b42b;
+	border-radius: 4px;
+	background: #391c08;
+	width: 20px;
+	height: 20px;
+	color: #e2b42b;
+	font-weight: 800;
+	font-size: 11px;
+	line-height: 16px;
+}
+
+.player-name {
+	display: block;
+	min-width: 0;
+	overflow: hidden;
+	color: var(--text-primary);
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.score-count {
+	display: flex;
+	flex-shrink: 0;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	padding: 4px 8px;
+	min-width: 28px;
+	color: var(--text-primary) !important;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 18px;
+}
