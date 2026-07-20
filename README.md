@@ -82,6 +82,8 @@ The production frontend is hosted at `https://castlefall.github.io/`. Build it f
 pnpm run build:pages
 ```
 
+In GitHub repository settings, set Pages source to **GitHub Actions**. If Pages is set to deploy from the `main` branch, GitHub will render the repository README instead of the built frontend artifact.
+
 The production Socket.IO/API server is hosted at `https://castlefall.duckdns.org/`. The frontend defaults to that backend when it is served from `https://castlefall.github.io/`; for other deployments, set `VITE_BACKEND_URL`.
 
 The backend can be built with `pnpm run build:backend` and run with Docker or `pnpm run start`. In production, allow the GitHub Pages origin:
